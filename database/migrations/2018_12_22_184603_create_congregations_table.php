@@ -16,8 +16,9 @@ class CreateCongregationsTable extends Migration
         Schema::create('congregations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('alias');
-            $table->string('lang');
+            $table->string('number')->unique();
+            $table->string('alias')->unique();
+            $table->string('lang')->default(1);
             $table->integer('user_id')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();

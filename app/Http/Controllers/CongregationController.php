@@ -8,6 +8,6 @@ class CongregationController extends Controller
 {
     public function index()
     {
-        return view('pages.congregation.view');
+        return view('pages.congregation.edit');
     }
 }
