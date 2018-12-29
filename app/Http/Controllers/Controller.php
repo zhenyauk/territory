@@ -6,7 +6,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use LaravelLocalization;
+use App\User;
 
 class Controller extends BaseController
 {
@@ -14,9 +16,6 @@ class Controller extends BaseController
 
     public $data = [];
 
-    public function __construct()
-    {
-    }
 
     //For more secure
     public function secure($name)
@@ -27,11 +26,20 @@ class Controller extends BaseController
         return $name;
     }
 
+
+
+
     // Get current language
     public function lang( $lang = '' )
     {
         if($lang === '') return LaravelLocalization::getCurrentLocale();
         return LaravelLocalization::setLocale($lang);
+    }
+
+    public function getCongId()
+    {
+        $user = User::find(Auth::id());
+        return $user->congregation_id;
     }
 
 

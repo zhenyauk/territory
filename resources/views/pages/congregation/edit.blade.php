@@ -28,7 +28,7 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Название собрания<small>*</small> : </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" placeholder="Львов Центральное" autocomplete="off">
+                            <input type="text" class="form-control" name="name" value="{{$cong->name or ''}}" placeholder="Львов Центральное" autocomplete="off">
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Email Администратора<small>*</small>: </label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" name="email" placeholder="@email" autocomplete="off">
+                            <input type="email" class="form-control" value="{{$cong->email or ''}}" name="email" placeholder="@email" autocomplete="off">
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Номер собрания (для удобства): </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="number" placeholder="№" autocomplete="off">
+                            <input type="text" class="form-control" value="{{$cong->number or ''}}" name="number" placeholder="№" autocomplete="off">
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Город: </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="number" placeholder="город" autocomplete="off">
+                            <input type="text" class="form-control" value="{{$cong->city or ''}}" name="city" placeholder="город" autocomplete="off">
                         </div>
                     </div>
                     <div class="pull-right col-md-3  "><br>

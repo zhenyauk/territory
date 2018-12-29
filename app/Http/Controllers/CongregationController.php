@@ -6,17 +6,19 @@ use App\Congregation;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as A;
+
 class CongregationController extends Controller
 {
 
-
+    protected $c = null;
 
     public function index()
     {
-        $data['username'] = Auth::User()->name;
-        if( Auth::User()->congregation_id != null ){
-            $data['cong'] = Congregation::findOrFail( Auth::User()->congregation_id );
-            return view('pages.congregation.view');
+
+        if( $this->getCongId() != null ){
+            $data['cong'] = Congregation::findOrFail( $this->getCongId() );
+            return view('pages.congregation.view', $data);
         } else {
             return view('pages.congregation.clean');
         }
@@ -32,8 +34,8 @@ class CongregationController extends Controller
 
     public function edit()
     {
-        $data['cong'] = Congregation::findOrFail( Auth::User()->congregation_id );
-        return view('pages.congregation.edit');
+        $data['cong'] = Congregation::findOrFail($this->getCongId() );
+        return view('pages.congregation.edit', $data);
     }
 
 
@@ -42,21 +44,30 @@ class CongregationController extends Controller
         //Validation rules
         $request->validate([
             'name' => 'bail|required|max:180|min:4',
-            'email' => 'required|max:180|min:4',
             'password' => 'required|min:4|confirmed',
         ]);
 
         //Check Create or Update congragation
-        if( Auth::User()->congregation_id != null){
+        if( $this->getCongId() == null){
             $cong = new Congregation;
         } else {
-            $cong = Congregation::findOrFail( Auth::User()->congregation_id );
+            $cong = Congregation::findOrFail($this->getCongId() );
         }
 
+        $cong->name = $request->name;
+        $cong->number = $request->number;
+        $cong->lang = $request->lang;
+        $cong->city = $request->city;
+        $cong->country = $request->country;
 
-
-
+        if( $cong->save() ) {
+            $user = User::findOrFail( Auth::id() );
+            $user->congregation_id = $cong->id;
+            $user->save();
+            return redirect('/');
+        }
     }
+
 
 
 }

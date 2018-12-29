@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('congregation_id')->nullable();
-            $table->integer('role');
+            $table->integer('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
