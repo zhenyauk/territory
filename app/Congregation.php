@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Congregation extends Model
 {
-    //
+    protected $fillable = [
+        '*'
+    ];
 }

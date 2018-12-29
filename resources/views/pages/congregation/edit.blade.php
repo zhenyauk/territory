@@ -14,7 +14,15 @@
             </div>
             <div class="panel-body" style="min-height:400px;">
                 <!-- content -->
-
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form class="form-horizontal" method="post" action="/adm/congrigation">
                     <div class="form-group form-material">
@@ -27,10 +35,10 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Язык: </label>
                         <div class="col-sm-8">
-                            <select class="form-control">
-                                <option>Русский</option>
-                                <option>English</option>
-                                <option>Українська</option>
+                            <select class="form-control" name="lang">
+                                <option value="ru" selected>Русский</option>
+                                <option value="en" >English</option>
+                                <option value="uk" >Українська</option>
                             </select>
                         </div>
                     </div>
@@ -38,21 +46,21 @@
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Email Администратора<small>*</small>: </label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" name="number" placeholder="@email" autocomplete="off">
+                            <input type="email" class="form-control" name="email" placeholder="@email" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Пароль<small>*</small>: </label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" name="number" placeholder="Пароль" autocomplete="off">
+                            <input type="password" class="form-control" name="password" placeholder="Пароль" autocomplete="off">
                         </div>
                     </div>
-
+                    {{csrf_field()}}
                     <div class="form-group form-material">
                         <label class="col-sm-4 control-label">Пароль еще раз<small>*</small>: </label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" name="number" placeholder="Пароль" autocomplete="off">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Пароль" autocomplete="off">
                         </div>
                     </div>
 
@@ -92,7 +100,8 @@
                     <br>
                     <div class="form-group form-material">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <button type="button" class="btn btn-primary waves-effect waves-light">Сохранить </button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Сохранить </button>
+
                         </div>
                     </div>
                 </form>
